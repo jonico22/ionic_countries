@@ -1,0 +1,14 @@
+<ion-view view-title="Countries">
+  <ion-content>
+    <h1 class="text-center">{{ theMessage }}</h1>
+     <!-- {{ theCountries }} -->
+    <ion-list>
+      <ion-item class="item-icon-right"
+    ng-repeat="country in theCountries" type="item-text-wrap"
+      href="#/tab/chats/{{chat.id}}">
+      {{ country.name }}
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-list>
+    </ion-item>
+  </ion-content>
+</ion-view>
