@@ -22,18 +22,51 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope,$ionicPopup) {
   $scope.settings = {
     enableFriends: true
   };
+  $scope.showAlert = function(){
+    $ionicPopup.alert({
+      title: "!Cuidado!",
+      subTitle: "Esta es un alerta",
+      cssClass: "myAlert",
+      template:'<p>Estas generando una alerta</p>',
+      okText : '!No me importa!',
+      okType : 'button-assertive'
+    });
+  }
+  $scope.showConfirm = function(){
+    var confirmPopup = $ionicPopup.confirm({
+      title: "Sobre tu viaje",
+      template:"¿Deseas viajar?",
+      okType : 'button-assertive'
+    })
+    confirmPopup.then(function(response){
+      if(response){
+        console.log('si desea viajar');
+      }else{
+        console.log('se quedara aburrido en casa..');
+      }
+    })
+
+  }
 })
 
-.controller('CountriesCtrl', function($scope, Countries, $state) {
+.controller('CountriesCtrl', function($scope, Countries, $state, $ionicLoading) {
   $scope.theMessage = Countries.getMessage();
+  $ionicLoading.show({
+    template: '<ion-spinner icon="spiral"></ion-spinner>',
+    content : 'Cargando ..',
+    animation :"fade-in",
+    maxWidth: 200,
+    showDelay:0
+  });
   $scope.getCountries = function(){
     Countries.all()
     .then(function (response) {
        $scope.theCountries = response.data;
+       $ionicLoading.hide();
     }, function(error){
         console.log(error)
     });
@@ -46,5 +79,4 @@ angular.module('starter.controllers', [])
 })
 .controller('CountriesDetailCtrl', function($scope, Countries) {
   $scope.country = Countries.getSelectedCountry();
-  console.log(Countries.getSelectedCountry());
 });
