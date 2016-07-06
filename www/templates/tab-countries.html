@@ -1,14 +1,20 @@
 <ion-view view-title="Countries">
   <ion-content>
-    <h1 class="text-center">{{ theMessage }}</h1>
+    <h3 class="text-center padding">{{ theMessage }}</h3>
      <!-- {{ theCountries }} -->
+     <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="searchText">
+      </label>
+    </div>
     <ion-list>
       <ion-item class="item-icon-right"
-    ng-repeat="country in theCountries" type="item-text-wrap"
-      href="#/tab/chats/{{chat.id}}">
+       ng-repeat="country in theCountries | filter:searchText" type="item-text-wrap"
+       ng-click="showDetail(country)">
       {{ country.name }}
       <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-list>
     </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

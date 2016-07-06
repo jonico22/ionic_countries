@@ -28,18 +28,23 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CountriesCtrl', function($scope, Countries, $http) {
+.controller('CountriesCtrl', function($scope, Countries, $state) {
   $scope.theMessage = Countries.getMessage();
   $scope.getCountries = function(){
-    $http.get('https://restcountries.eu/rest/v1/all')
-    .then(function(response){
-        $scope.theCountries = response.data;
+    Countries.all()
+    .then(function (response) {
+       $scope.theCountries = response.data;
     }, function(error){
         console.log(error)
     });
   }
   $scope.getCountries();
+  $scope.showDetail = function(country){
+    $state.go('tab.country-detail');
+    Countries.selectedCountry(country);
+  }
 })
-.controller('ChatDetailCtrl', function($scope, $stateParams, Countries) {
-  $scope.country = Countries.get($stateParams.chatId);
+.controller('CountriesDetailCtrl', function($scope, Countries) {
+  $scope.country = Countries.getSelectedCountry();
+  console.log(Countries.getSelectedCountry());
 });

@@ -87,7 +87,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'CountriesCtrl'
       }
     }
-  });
+  })
+  .state('tab.country-detail', {
+    url: '/countries/detail',
+    views: {
+      'tab-countries': {
+        templateUrl: 'templates/countries-detail.html',
+        controller: 'CountriesDetailCtrl'
+      }
+    }
+  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
